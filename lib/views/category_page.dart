@@ -39,17 +39,16 @@ import '../model/news_model.dart';
    Widget build(BuildContext context) {
      return Scaffold(
        appBar: AppBar(
-         backgroundColor: Colors.white,
+         backgroundColor: Colors.blue[900],
          elevation: 0.0,
          title: Row(
            mainAxisAlignment: MainAxisAlignment.center,
            children:<Widget> [
-             Text("News" , style: TextStyle(
-                 color: Colors.blue
+             Text(widget.categories.toUpperCase() ,
+               style: TextStyle(
+                 color: Colors.black
              ),),
-             Text("App", style: TextStyle(
-                 color: Colors.grey
-             ),)
+
            ],
          ),
        ),
