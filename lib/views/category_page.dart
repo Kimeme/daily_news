@@ -20,11 +20,15 @@ import '../model/news_model.dart';
  class _CategoryFragmentState extends State<CategoryFragment> {
 
    List<ArticleModel> article=[];
+   bool _loading = true;
 
    getNews() async{
      CategoryNews newsClass= CategoryNews();
      await newsClass.getNews(widget.categories);
      article= newsClass.news;
+     setState(() {
+       _loading= false;
+     });
    }
 
    @override
@@ -44,33 +48,40 @@ import '../model/news_model.dart';
          title: Row(
            mainAxisAlignment: MainAxisAlignment.center,
            children:<Widget> [
-             Text(widget.categories.toUpperCase() ,
-               style: TextStyle(
-                 color: Colors.black
-             ),),
+             Padding(
+               padding: EdgeInsets.only(right: 50),
+               child: Text(widget.categories.toUpperCase() ,
+                 style: TextStyle(
+                   color: Colors.black
+               ),),
+             ),
 
            ],
          ),
        ),
-       body: SingleChildScrollView(
-         child: Container(
-                 child:ListView.builder(
-                     itemCount: article.length,
-                     physics: ClampingScrollPhysics(),
-                     shrinkWrap: true,
-                     itemBuilder: (context, index){
-                       return BlogTile(
-                           title: article[index].title,
-                           description: article[index].description,
-                           urlToImage: article[index].urlToImage
-                       );
+       body: _loading? Center(
+         child: CircularProgressIndicator(),
 
-                     }
-                 ) ,
-               ),
+       ): SingleChildScrollView(
+           child: Container(
+                   child:ListView.builder(
+                       itemCount: article.length,
+                       physics: ClampingScrollPhysics(),
+                       shrinkWrap: true,
+                       itemBuilder: (context, index){
+                         return BlogTile(
+                             title: article[index].title,
+                             description: article[index].description,
+                             urlToImage: article[index].urlToImage
+                         );
 
-           ),
-         );
+                       }
+                   ) ,
+                 ),
+
+             ),
+       );
+
    }
  }
 

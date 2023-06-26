@@ -21,11 +21,15 @@ class _HomeState extends State<Home> {
 
   // get our newlist first
   List<ArticleModel> article=[];
+  bool _loading = true;
 
   getNews() async{
     News newsClass= News();
     await newsClass.getNews();
     article= newsClass.news;
+    setState(() {
+      _loading= false;
+    });
   }
 
    @override
@@ -55,51 +59,55 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-            color: Colors.white,
-          child: Column(
-            children:<Widget> [
-            /// Category model
-              Container(
-                height: 70.0,
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
-                child: ListView.builder(
-                  itemCount: category.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder:(context, index){
-                         return CategoryTile(
-                             imageUrl: category[index].imageUrl,
-                             categoryName: category[index].categoryName,
-                         );
-                    } ,
+      body: _loading? Center(
+        child: CircularProgressIndicator(
+
+        ),
+      )
+        : SingleChildScrollView(
+          child: Container(
+              color: Colors.white,
+            child: Column(
+              children:<Widget> [
+              /// Category model
+                Container(
+                  height: 70.0,
+                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  child: ListView.builder(
+                    itemCount: category.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder:(context, index){
+                           return CategoryTile(
+                               imageUrl: category[index].imageUrl,
+                               categoryName: category[index].categoryName,
+                           );
+                      } ,
+                  ),
                 ),
-              ),
-              /// Blogmodel
-              Container(
-                child:ListView.builder(
-                  itemCount: article.length,
-                    physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index){
-                       return BlogTile(
-                           title: article[index].title,
-                           description: article[index].description,
-                           urlToImage: article[index].urlToImage
-                       );
+                /// Blogmodel
+                Container(
+                  child:ListView.builder(
+                    itemCount: article.length,
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index){
+                         return BlogTile(
+                             title: article[index].title,
+                             description: article[index].description,
+                             urlToImage: article[index].urlToImage
+                         );
 
-                    }
-                ) ,
-              ),
+                      }
+                  ) ,
+                ),
 
-            ],
+              ],
 
+            ),
           ),
         ),
-      ),
-
-    );
+      );
   }
 }
 class CategoryTile extends StatelessWidget {
