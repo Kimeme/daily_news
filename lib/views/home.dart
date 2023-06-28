@@ -67,12 +67,13 @@ class _HomeState extends State<Home> {
         : SingleChildScrollView(
           child: Container(
               color: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children:<Widget> [
               /// Category model
                 Container(
                   height: 70.0,
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
+                  padding: EdgeInsets.only(top: 16),
                   child: ListView.builder(
                     itemCount: category.length,
                       shrinkWrap: true,
@@ -87,15 +88,18 @@ class _HomeState extends State<Home> {
                 ),
                 /// Blogmodel
                 Container(
+                  padding: EdgeInsets.only(top: 16),
                   child:ListView.builder(
                     itemCount: article.length,
                       physics: ClampingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index){
                          return BlogTile(
+                              imageUrl: article[index].urlToImage,
                              title: article[index].title,
                              description: article[index].description,
-                             urlToImage: article[index].urlToImage
+                             //url: article[index].url
+
                          );
 
                       }
@@ -131,7 +135,7 @@ class CategoryTile extends StatelessWidget {
                 child: CachedNetworkImage(imageUrl: imageUrl, width: 160, height: 90, fit: BoxFit.cover, )),
             Container(
               width: 160,
-              height: 90,
+              height: 100,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
@@ -153,27 +157,41 @@ class CategoryTile extends StatelessWidget {
 
 // creating blog tile for news
   class BlogTile extends StatelessWidget {
-  final String title, description , urlToImage;
-    BlogTile({required this.title,required this.description, required this.urlToImage});
+  final String imageUrl, title, description   /*url*/;
+    BlogTile({required this.imageUrl,required this.title,required this.description, /*required this.url*/});
 
 
     @override
     Widget build(BuildContext context) {
-      return Container(
-        margin: EdgeInsets.all(16),
-        child: Column(
-          children: <Widget>[
-            
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-                child: CachedNetworkImage(imageUrl: urlToImage, width: 380, height: 200, fit: BoxFit.cover,)),
-         //for title
-            SizedBox(height: 0,),
-            Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.black),),
-          //for description
-           SizedBox(height: 0,),
-            Text(description, style: TextStyle( fontSize: 15.0, color: Colors.grey[800]),)
-          ],
+      return GestureDetector(
+
+        child: Container(
+          margin: EdgeInsets.only(bottom: 16),
+          child: Column(
+            children: <Widget>[
+
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    width: 380,
+                    height: 150,
+                    fit: BoxFit.cover,
+                  )),
+           //for title
+              SizedBox(height: 8,),
+              Text(title, style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18.0,
+                  color: Colors.black87
+              ),),
+            //for description
+             SizedBox(height: 8,),
+              Text(description, style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black54),)
+            ],
+          ),
         ),
       );
     }

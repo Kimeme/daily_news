@@ -1,7 +1,6 @@
 import 'package:daily_news/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_news/helper/news_data.dart';
-import 'package:flutter/material.dart';
 
 import '../helper/category_data.dart';
 import '../model/category_model.dart';
@@ -99,9 +98,17 @@ class BlogTile extends StatelessWidget {
 
           ClipRRect(
               borderRadius: BorderRadius.circular(6),
-              child: CachedNetworkImage(imageUrl: urlToImage, width: 380, height: 200, fit: BoxFit.cover,)),
+              child: CachedNetworkImage(
+                imageUrl: urlToImage,
+                width: 380,
+                height: 200,
+                fit: BoxFit.cover,
+              )),
           SizedBox(height: 0,),
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.black),),
+          Text(title, style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+              color: Colors.black),),
           //for description
           SizedBox(height: 0,),
           Text(description, style: TextStyle( fontSize: 15.0, color: Colors.grey[800]),)

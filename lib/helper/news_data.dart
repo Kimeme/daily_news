@@ -23,7 +23,7 @@ class News{
              // author: element['author'],
               title: element['title'],
               description: element['description'],
-             // url: element['url'],
+            //  url: element['url'],
               urlToImage: element['urlToImage'],
              // publishedAt: element['publishedAt'],
              // content: element['content']
@@ -42,7 +42,7 @@ class CategoryNews{
   Future<void> getNews(String categories) async {
 
 
-    var response = await get(Uri.parse('https://newsapi.org/v2/top-headlines?country=us&category=$categories&apiKey=e298abae11994dd1adafc915b850dc32'));
+    var response = await get(Uri.parse('https://newsapi.org/v2/top-headlines?country=in&category=$categories&apiKey=e298abae11994dd1adafc915b850dc32'));
 
     var jsonData = jsonDecode(response.body);
 
@@ -53,13 +53,13 @@ class CategoryNews{
         if (element['urlToImage'] != null && element['description'] !=null) {
 
           ArticleModel articleModel=ArticleModel(
-             // author: element['author'],
+              //author: element['author'],
               title: element['title'],
               description: element['description'],
               //url: element['url'],
               urlToImage: element['urlToImage'],
              // publishedAt: element['publishedAt'],
-             // content: element['content']
+              //content: element['content']
           );
           news.add(articleModel);
         }
