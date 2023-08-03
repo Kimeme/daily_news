@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children:<Widget> [
-            Text("Flutter" , style: TextStyle(
+            Text("My" , style: TextStyle(
               color: Colors.blue
             ),),
             Text("NewsApp", style: TextStyle(
